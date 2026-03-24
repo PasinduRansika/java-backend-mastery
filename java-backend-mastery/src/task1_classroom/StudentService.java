@@ -6,7 +6,7 @@ import java.util.List;
 public class StudentService{
     private List<Student> studentsList = new LinkedList<>();
 
-    public List<Student() {
+    public List getStudentsList()<Student() {
         return studentsList;
     }
 
