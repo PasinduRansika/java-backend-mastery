@@ -6,6 +6,10 @@ import java.util.List;
 public class StudentService{
     private List<Student> studentsList = new LinkedList<>();
 
+    public List<Student() {
+        return studentsList;
+    }
+
     public void addStudentToList(Student student){
         studentsList.add(student);
     }
