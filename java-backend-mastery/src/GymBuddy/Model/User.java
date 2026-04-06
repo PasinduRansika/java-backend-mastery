@@ -7,20 +7,20 @@ public abstract class User {
     private String name;
     private final LocalDate dateOfBirth;
     private String location;
-    private String involvement;
+    private String schedulePreference;
 
-    public User(String name, LocalDate dateOfBirth, String location, String involvement) {
+    public User(String name, LocalDate dateOfBirth, String location, String schedulePreference) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.location = location;
-        this.involvement = involvement;
+        this.schedulePreference = schedulePreference;
     }
 
     public String getName() {
         return name;
     }
-    public String getInvolvement() {
-        return involvement;
+    public String getSchedulePreference() {
+        return schedulePreference;
     }
     public String getLocation() {
         return location;
@@ -32,8 +32,8 @@ public abstract class User {
     public void setLocation(String location) {
         this.location = location;
     }
-    public void setInvolvement(String involvement) {
-        this.involvement = involvement;
+    public void setSchedulePreference(String schedulePreference) {
+        this.schedulePreference = schedulePreference;
     }
 
     public abstract void performRole();
