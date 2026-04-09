@@ -11,7 +11,17 @@ public class Membership {
     private double price;
 
     public Membership(int membershipId, MembershipType type, LocalDate startDate) {
+        if (membershipId <= 0) {
+            throw new IllegalArgumentException("ID Cannot Be a Negative Number");
+        }
         this.membershipId = membershipId;
+        setMembershipDetails(type, startDate);
+    }
+
+    public void setMembershipDetails(MembershipType type, LocalDate startDate) {
+        if (type == null) throw new NullPointerException("Membership type is required.");
+        if (startDate == null) throw new NullPointerException("Start date is required.");
+
         this.type = type;
         this.startDate = startDate;
         this.price = type.getPrice();

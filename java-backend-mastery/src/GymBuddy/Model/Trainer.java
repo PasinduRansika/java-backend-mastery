@@ -11,9 +11,17 @@ public class Trainer extends User{
 
     public Trainer(String name, LocalDate dateOfBirth, String location, String schedulePreference,String specialization) {
         super(name, dateOfBirth, location, schedulePreference);
+
+        validateSpecialization(specialization);
         this.specialization = specialization;
 
         this.myClasses = new ArrayList<>();
+    }
+
+    private void validateSpecialization(String specialization) {
+        if (specialization == null || specialization.trim().isEmpty()) {
+            throw new IllegalArgumentException("Specialization cannot be null or empty.");
+        }
     }
 
     public String getSpecialization() {
@@ -25,6 +33,7 @@ public class Trainer extends User{
     }
 
     public void setSpecialization(String specialization) {
+        validateSpecialization(specialization);
         this.specialization = specialization;
     }
 
