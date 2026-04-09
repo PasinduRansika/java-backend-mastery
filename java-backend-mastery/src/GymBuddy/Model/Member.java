@@ -13,10 +13,9 @@ public class Member extends User {
     private List<Booking> bookings;
     private List<Progress> progressLog;
 
-    public Member(String name, LocalDate dateOfBirth, String location, String schedulePreference, int memberId, Membership membershipPlan) {
+    public Member(String name, LocalDate dateOfBirth, String location, String schedulePreference, int memberId) {
         super(name, dateOfBirth, location, schedulePreference);
         this.memberId = memberId;
-        this.membershipPlan = membershipPlan;
 
         this.weightLog = new ArrayList<>();
         this.bookings = new ArrayList<>();
@@ -39,13 +38,16 @@ public class Member extends User {
         return Collections.unmodifiableList(progressLog);
     }
 
+// Membership getters and setters
     public Membership getMembershipPlan() {
         return membershipPlan;
     }
 
     public void setMembershipPlan(Membership membershipPlan) {
+        if (membershipPlan == null) throw new IllegalArgumentException("Membership cannot be null");
         this.membershipPlan = membershipPlan;
     }
+//---------------------------
 
     public void addBooking(Booking booking) {
         this.bookings.add(booking);
