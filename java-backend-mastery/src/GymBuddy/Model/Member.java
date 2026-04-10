@@ -13,7 +13,7 @@ public class Member extends User {
     private List<Booking> bookings;
     private List<Progress> progressLog;
 
-    public Member(String name, LocalDate dateOfBirth, String location, String schedulePreference, int memberId) {
+    public Member(String name, LocalDate dateOfBirth, String location, SchedulePreference schedulePreference, int memberId) {
         super(name, dateOfBirth, location, schedulePreference);
         this.memberId = memberId;
 

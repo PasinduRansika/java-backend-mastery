@@ -9,7 +9,7 @@ public class Trainer extends User{
     private String specialization;
     private List<GymClass> myClasses;
 
-    public Trainer(String name, LocalDate dateOfBirth, String location, String schedulePreference,String specialization) {
+    public Trainer(String name, LocalDate dateOfBirth, String location, SchedulePreference schedulePreference, String specialization) {
         super(name, dateOfBirth, location, schedulePreference);
 
         validateSpecialization(specialization);

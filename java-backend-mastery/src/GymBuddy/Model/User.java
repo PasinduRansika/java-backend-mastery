@@ -7,9 +7,9 @@ public abstract class User {
     private final String name;
     private final LocalDate dateOfBirth;
     private String location;
-    private String schedulePreference;
+    private SchedulePreference schedulePreference;
 
-    public User(String name, LocalDate dateOfBirth, String location, String schedulePreference) {
+    public User(String name, LocalDate dateOfBirth, String location, SchedulePreference schedulePreference) {
         validateString(name,"name");
         this.name = name;
 
@@ -24,8 +24,10 @@ public abstract class User {
         validateString(location,"location");
         this.location = location;
 
-        validateString(schedulePreference,"schedulePreference");
-        this.schedulePreference = schedulePreference;
+        if(schedulePreference == null){
+            throw new IllegalArgumentException("Schedule preference is required !");
+        }
+        this.schedulePreference =schedulePreference;
     }
 
 // Method for Validate Location
@@ -39,7 +41,7 @@ public abstract class User {
     public String getName() {
         return name;
     }
-    public String getSchedulePreference() {
+    public SchedulePreference getSchedulePreference() {
         return schedulePreference;
     }
     public String getLocation() {
@@ -54,9 +56,11 @@ public abstract class User {
         validateString(location,"location");
         this.location = location;
     }
-    public void setSchedulePreference(String schedulePreference) {
-        validateString(schedulePreference,"schedulePreference");
-        this.schedulePreference = schedulePreference;
+    public void setSchedulePreference(SchedulePreference schedulePreference) {
+        if(schedulePreference == null){
+            throw new IllegalArgumentException("Schedule preference is required !");
+        }
+        this.schedulePreference =schedulePreference;
     }
 
     public abstract void performRole();
