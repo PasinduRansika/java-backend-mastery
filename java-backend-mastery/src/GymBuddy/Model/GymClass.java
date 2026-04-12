@@ -30,9 +30,6 @@ public class GymClass {
         validateTrainer(trainer);
         this.trainer = trainer;
 
-        this.currentBookings = 0;
-        incrementBookings();
-
     }
 
     public int getClassID() {
