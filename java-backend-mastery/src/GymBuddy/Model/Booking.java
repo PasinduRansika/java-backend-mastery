@@ -20,7 +20,6 @@ public class Booking {
         Objects.requireNonNull(member, "Member cannot be null!");
         this.member = member;
 
-        this.currentClass.incrementBookings();
     }
 
     private void validateID(int bookingID){

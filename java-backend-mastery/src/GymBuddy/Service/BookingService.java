@@ -1,9 +1,6 @@
 package GymBuddy.Service;
 
-import GymBuddy.Exception.BookingLimitException;
-import GymBuddy.Exception.ClassFullException;
-import GymBuddy.Exception.InvalidCancellationException;
-import GymBuddy.Exception.MembershipExpiredException;
+import GymBuddy.Exception.*;
 
 import GymBuddy.Model.Booking;
 import GymBuddy.Model.BookingStatus;
@@ -16,9 +13,16 @@ import java.time.LocalDateTime;
 
 public class BookingService {
     private int nextId = 1;
+    private MemberService memberService;
 
-    public void bookClass(Member member, GymClass gymClass) {
-        if (!member.getMembershipPlan().isActive()) {
+    public BookingService(MemberService memberService){
+        this.memberService = memberService;
+    }
+
+    public void bookClass(int memberId, GymClass gymClass) {
+        Member member = memberService.findMemberById(memberId);
+
+        if (member.getMembershipPlan() == null || !member.getMembershipPlan().isActive()) {
             throw new MembershipExpiredException("You Cannot Book The Class!");
         }
 
@@ -44,13 +48,21 @@ public class BookingService {
         Booking booking = new Booking(nextId++, gymClass, member);
         booking.setStatus(BookingStatus.CONFIRMED);
         member.addBooking(booking);
+        gymClass.incrementBookings();
     }
 
-    public void cancelClass(Booking booking) {
+    public void cancelClass(int memberId, int bookingId) {
+        Member member = memberService.findMemberById(memberId);
+
+        Booking booking = member.getBookings().stream()
+                .filter(b -> b.getBookingID() == bookingId)
+                .findFirst().orElseThrow(() -> new NoSuchElementException("Booking not found for this member!"));
+
+
         LocalDateTime classDateTime = LocalDateTime.of(booking.getCurrentClass().getDate(), booking.getCurrentClass().getTime());
 
         if (LocalDateTime.now().isAfter(classDateTime.minusHours(24))) {
-            throw new InvalidCancellationException("Cancellation Deadline Has Passed (24h rule) !");
+            throw new InvalidCancellationException("Cancellation Deadline Has Passed (24h rule)!");
         }
 
         booking.setStatus(BookingStatus.CANCELLED);
