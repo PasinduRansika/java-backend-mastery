@@ -94,32 +94,27 @@ public class GymClass {
     }
 
 // validation methods
-    private void validateID(int classID){
-        if(classID < 0){
-            throw new IllegalArgumentException("Enter Valid ID !");
+private void validateID(int classID) {
+    if (classID <= 0) throw new IllegalArgumentException("Enter a valid positive ID!");
+    }
+
+    private void validateCapacity(int maximumCapacity) {
+        if (maximumCapacity <= 0) throw new IllegalArgumentException("Maximum capacity must be at least 1!");
+    }
+
+    private void validateTrainer(Trainer trainer) {
+        if (trainer == null) throw new IllegalArgumentException("Trainer cannot be null!");
+    }
+
+    private void validateClassType(ClassTypes type) {
+        if (type == null) throw new IllegalArgumentException("Class type cannot be null!");
+    }
+
+    private void validateDateAndTime(LocalDate date, LocalTime time) {
+        if (date == null) throw new IllegalArgumentException("Date cannot be null!");
+        if (time == null) throw new IllegalArgumentException("Time cannot be null!");
+        if (!date.isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("Classes must be scheduled for a future date (starting from tomorrow)!");
         }
     }
-
-    private void validateCapacity(int maximumCapacity){
-        if(maximumCapacity < 0){
-            throw new IllegalArgumentException("Enter Valid Maximum Capacity !");
-        }
-    }
-
-    private void validateTrainer(Trainer trainer){
-        Objects.requireNonNull(trainer,"Trainer Cannot Be Null !");
-    }
-
-    private void validateClassType(ClassTypes type){
-        Objects.requireNonNull(type,"Class Type Cannot Be Null !");
-    }
-
-    private void validateDateAndTime(LocalDate date,LocalTime time){
-        Objects.requireNonNull(date, "Date Cannot Be Null !");
-        Objects.requireNonNull(time, "Time Cannot Be Null !");
-        if(date.isBefore(LocalDate.now())){
-            throw new IllegalArgumentException("Please Enter Valid Date and Time !");
-        }
-    }
-
 }
