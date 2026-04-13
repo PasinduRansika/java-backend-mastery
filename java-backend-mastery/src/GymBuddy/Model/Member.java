@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class Member extends User {
     private final int memberId;
@@ -15,6 +16,7 @@ public class Member extends User {
 
     public Member(String name, LocalDate dateOfBirth, String location, SchedulePreference schedulePreference, int memberId) {
         super(name, dateOfBirth, location, schedulePreference);
+        validateMemberId(memberId);
         this.memberId = memberId;
 
         this.weightLog = new ArrayList<>();
@@ -44,10 +46,17 @@ public class Member extends User {
     }
 
     public void setMembershipPlan(Membership membershipPlan) {
-        if (membershipPlan == null) throw new IllegalArgumentException("Membership cannot be null");
+        if (membershipPlan == null) {
+            throw new IllegalArgumentException("Membership Plan Cannot Be Null !");
+        }
         this.membershipPlan = membershipPlan;
     }
 //---------------------------
+    private void validateMemberId(int memberId){
+        if (memberId <= 0) {
+            throw new IllegalArgumentException("Invalid Member ID! ID Must Be a Positive !");
+        }
+    }
 
     public void addBooking(Booking booking) {
         this.bookings.add(booking);
