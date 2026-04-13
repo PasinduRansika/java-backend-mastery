@@ -19,8 +19,8 @@ public class Membership {
     }
 
     public void setMembershipDetails(MembershipType type, LocalDate startDate) {
-        if (type == null) throw new NullPointerException("Membership type is required.");
-        if (startDate == null) throw new NullPointerException("Start date is required.");
+        if (type == null) throw new IllegalArgumentException("Membership type is required.");
+        if (startDate == null) throw new IllegalArgumentException("Start date is required.");
 
         this.type = type;
         this.startDate = startDate;
@@ -33,6 +33,7 @@ public class Membership {
     }
 
     public void setType(MembershipType type) {
+        if (type == null) throw new IllegalArgumentException("Type cannot be null");
         this.type = type;
         this.price = type.getPrice();
         calculateEndDate();
@@ -43,6 +44,7 @@ public class Membership {
     }
 
     public void setStartDate(LocalDate startDate) {
+        if (startDate == null) throw new IllegalArgumentException("Start date cannot be null");
         this.startDate = startDate;
         calculateEndDate();
     }
@@ -50,10 +52,11 @@ public class Membership {
     public void  calculateEndDate(){
         if(startDate == null) return;
 
-        if(type == MembershipType.BASIC || type == MembershipType.PREMIUM){
+        if (type == MembershipType.BASIC || type == MembershipType.PREMIUM) {
             this.endDate = startDate.plusMonths(1);
+        } else {
+            this.endDate = startDate.plusYears(1);
         }
-        else this.endDate = startDate.plusYears(1);
     }
 
     public LocalDate getEndDate() {
@@ -65,6 +68,7 @@ public class Membership {
     }
 
     public boolean isActive(){
+        if (endDate == null) return false;
         LocalDate today = LocalDate.now();
         return !today.isAfter(endDate);
     }
