@@ -2,6 +2,7 @@ package GymBuddy.Service;
 
 
 import GymBuddy.Model.SchedulePreference;
+import GymBuddy.Model.Specialization;
 import GymBuddy.Model.Trainer;
 
 import java.util.*;
@@ -34,13 +35,13 @@ public class TrainerService{
         trainerList.remove(id);
     }
 
-    public List<Trainer> getBySpecialization(String specialization){
+    public List<Trainer> getBySpecialization(Specialization specialization) {
         return trainerList.values().stream()
-                .filter(t -> t.getSpecialization().equalsIgnoreCase(specialization))
-                        .toList();
+                .filter(t -> t.getSpecialization() == specialization)
+                .toList();
     }
 
-    public void updateSpecialization(int trainerId,String specialization){
+    public void updateSpecialization(int trainerId, Specialization specialization){
         findTrainerById(trainerId).setSpecialization(specialization);
     }
 
